@@ -35,7 +35,7 @@ if(args.highlow):
 	print("High of $"+str(high)+" at "+high_time)
 	print("Low of $"+str(low)+" at "+low_time)
 
-#Alerts
+#Notices
 if(args.notices):
 	print('\nRecent Notices for '+args.coin.upper())
 	url = 'https://chasing-coins.com/api/v1/std/notices/'+args.coin.upper()
