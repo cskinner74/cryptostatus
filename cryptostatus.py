@@ -6,8 +6,10 @@ import argparse
 #Parser section
 parser = argparse.ArgumentParser(description="Check current altcoin prices.\nAPI provided by https://chasing-coins.com/api")
 parser.add_argument("coin", help="Abbreviation of coin to look up")
+parser.add_argument("-c", "--change", help="1 HR and 1 Day Change", action="store_true")
 parser.add_argument("-hl", "--highlow", help="Display 24 Hour High/Low", action="store_true")
 parser.add_argument("-n", "--notices", help="Show recent notices", action="store_true")
+parser.add_argument("-r", "--raw", help="output just the raw price instead of verbose output", action="store_true")
 args = parser.parse_args()
 
 #Current price lookup
@@ -15,12 +17,20 @@ url = 'https://chasing-coins.com/api/v1/std/coin/'+args.coin.upper()
 r = requests.get(url)
 data = r.json()
 cprice=data['price']
-print('Current price: $' + cprice)
-hour = data['change']['hour']
-day = data['change']['day']
-print("Change:")
-print("Past hour: $" + hour)
-print("Past day: $" + day)
+
+#Verbose vs Raw output
+if(args.raw):
+	print(cprice)
+else:
+	print('Current '+args.coin.upper()+ ' price: $' + cprice)
+
+#Change
+if(args.change):
+	hour = data['change']['hour']
+	day = data['change']['day']
+	print("Change:")
+	print("Past hour: $" + hour)
+	print("Past day: $" + day)
 
 #24 hour high low 
 if(args.highlow):
@@ -45,4 +55,4 @@ if(args.notices):
 		time = l['created_at']
 		notice = l['notice']
 		print(time+": "+notice)
-	
+
