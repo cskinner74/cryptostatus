@@ -1,5 +1,5 @@
 # cryptostatus
-Python script to check the status of different altcoins
+Python script to check the status of different cryptocurrencies
 
 REQUIRES PYTHON3
 
